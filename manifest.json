@@ -1,16 +1,22 @@
   {
-    "name": "Getting Started Example",
+    "name": "Cha ching",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "play a sound when an ad impression is viewable",
     "manifest_version": 2,
     "web_accessible_resources": [
       "script.js",
       "sound.mp3"
     ],
     "permissions": [
-    "background",
-    "activeTab"
+      "background",
+      "activeTab"
     ],
+
+    "browser_action": {
+    },
+    "background": {
+      "scripts": ["background.js"]
+    },
     "content_scripts": [
       {
         "matches": [

@@ -12,21 +12,17 @@ googletag.cmd.push(() => {
     .addEventListener('slotRenderEnded', ({isEmpty, size, slot}) => {
       if (!isEmpty && size[0] > 50) {
         slots.push(slot);
-        console.log(slot.getAdUnitPath(), 'slotRenderEnded')
       }
     })
     .addEventListener('impressionViewable', ({slot}) => {
       if(slots.includes(slot)) {
         numAdsViewable = numAdsViewable + 1;
-        console.log('count ', numAdsViewable)
-        console.log('ratio', numAdsViewable / slots.length)
 
-chrome.runtime.sendMessage(
-    "foo",
-    function (response) {
-        console.log(response);
-    }
-);
+        window.postMessage({
+          type: 'chaching',
+          numAdsViewable,
+          numSlots: slots.length
+        })
       }
     })
 });
