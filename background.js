@@ -1,11 +1,16 @@
-
 const sound = new Audio(chrome.extension.getURL('sound.mp3'))
 
+let count = 0;
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log(request)
   const { numAdsViewable, numSlots } = request;
-  chrome.browserAction.setBadgeText({ text: `${numAdsViewable}` });
-  sound.play();
+  const ratio = numAdsViewable / numSlots
+  chrome.browserAction.setBadgeText({ text: `${ratio.toFixed(1)}` });
+  chrome.browserAction.setBadgeBackgroundColor({color: ratio <= 0.7 ? 'red' : 'blue'})
+  if (numAdsViewable > count) {
+    count = numAdsViewable;
+    sound.play();
+  }
 });
 
 
